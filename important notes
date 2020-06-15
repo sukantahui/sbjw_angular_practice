@@ -1,0 +1,21 @@
+
+
+
+
+
+https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap
+
+//this is required for Angular 9
+ng add @angular/localize
+
+ng add @angular/material
+
+
+https://css-tricks.com/guides/
+https://github.com/FortAwesome/angular-fontawesome
+
+https://medium.com/techiediaries-com/angular-9-8-authentication-form-angular-formbuilder-formgroup-and-validators-example-with-node-f91729db006f
+
+
+https://ng-bootstrap.github.io/#/components/toast/examples
+

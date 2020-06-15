@@ -1,0 +1,101 @@
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id="customer-div">
+<!--  Left Side-->
+  <div fxLayout="column" fxFlex="40" class="mr-1">
+<!--    https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/-->
+    <mat-card>
+      <div class="form-container">
+        <form [formGroup] = customerForm (ngSubmit)="onSubmit()">
+          <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+              <mat-form-field>
+                <input matInput placeholder="Customer Name" formControlName="person_name">
+                <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="!customerForm.get('person_name').valid && customerForm.get('person_name').touched">
+                  <mat-error *ngIf="customerForm.get('person_name').errors['required']">This field is Required</mat-error>
+                  <mat-error *ngIf="customerForm.get('person_name').errors['minlength']">Minimum length of name is {{customerForm.get('person_name').errors.minlength.requiredLength}}</mat-error>
+                  <mat-error *ngIf="customerForm.get('person_name').errors['maxlength']">Maximum length of name is {{customerForm.get('person_name').errors.maxlength.requiredLength}}</mat-error>
+                </div>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-placeholder>Email  <mat-icon> email</mat-icon></mat-placeholder>
+                <input matInput  formControlName="email">
+                <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="!customerForm.get('email').valid && customerForm.get('email').touched">
+                  <mat-error *ngIf="customerForm.get('email').errors['required']">This field is Required</mat-error>
+                  <mat-error *ngIf="customerForm.get('email').errors['email']">This is not a valid Email</mat-error>
+                </div>
+              </mat-form-field>
+
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <mat-form-field>
+                  <input matInput placeholder="Contact 1" formControlName="mobile1">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Contact 2" formControlName="mobile2">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Category</mat-label>
+                  <select matNativeControl required>
+                    <option value="2">Base</option>
+                    <option value="3">Base-50</option>
+                    <option value="4">Base-100</option>
+                    <option value="5">Base-150</option>
+                  </select>
+                </mat-form-field>
+              </div>
+
+              <!-- Address1 and Address2-->
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex="50">
+                  <input matInput placeholder="Address 1" formControlName="address1">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                  <input matInput placeholder="Address 2" formControlName="address2">
+                </mat-form-field>
+              </div>
+              <!-- PO, Area, City, PIN -->
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex="30">
+                  <input matInput placeholder="Post" formControlName="po">
+                </mat-form-field>
+                <mat-form-field fxFlex="30">
+                  <input matInput placeholder="Area" formControlName="area">
+                </mat-form-field>
+
+              </div>
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex="30">
+                  <input matInput placeholder="City" formControlName="city">
+                </mat-form-field>
+                <mat-form-field fxFlex="30">
+                  <input matInput placeholder="PIN" formControlName="pin">
+                </mat-form-field>
+            </div>
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+                <button mat-button  mat-stroked-button (click)="clearCustomerForm()">
+                  Clear
+                </button>
+                <button mat-button  mat-stroked-button [disabled]="!customerForm.valid" >
+                    Save
+                </button>
+                <button mat-button type="button"  mat-stroked-button (click)="updateCustomer()" [disabled]="!customerForm.valid">
+                  Update
+                </button>
+              </div>
+          </div>
+        </form>
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="currentEerror">
+          <strong>Error!</strong> {{currentEerror.message}}
+        </div>
+
+      </div>
+    </mat-card>
+    <mat-card>
+      <pre>
+        {{this.customerForm.value | json}}
+      </pre>
+    </mat-card>
+  </div>
+<!--  Right Side-->
+  <div fxFlex="60" >
+    <app-customer-list></app-customer-list>
+  </div>
+</div>

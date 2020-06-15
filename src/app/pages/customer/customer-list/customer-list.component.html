@@ -1,0 +1,104 @@
+<!--<ul style="background-color: #a6e0ff">-->
+<!--  <li *ngFor="let item of customerData | paginate: { itemsPerPage: 10, currentPage: p }">-->
+<!--    {{item.person_name}}-->
+<!--  </li>-->
+<!--  <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+<!--</ul>-->
+
+<div id="customer-table-div">
+  <form class="example-form">
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div id="customer-table">
+    <table class="table" id="my-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>City</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let customer of customerData | filter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p }">
+        <td>{{customer.id}}</td>
+        <td sortable-column="person_name">{{customer.person_name}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.mobile1}}</td>
+        <td>{{customer.city}}</td>
+        <td>
+          <button mat-icon-button color="primary" aria-label="Edit Customer" (click)="populateFormByCurrentCustomer(customer)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Edit Customer" (click)="deleteCurrentCustomer(customer)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
+    <!--    https://www.npmjs.com/package/ngx-pagination-->
+    <!--    npm i ngx-pagination-->
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls  id="some_id"
+                          (pageChange)="p=($event)"
+                          maxSize="5"
+                          directionLinks="true"
+                          autoHide="true"
+                          responsive="true"
+                          previousLabel="Previous"
+                          nextLabel="Next"
+                          screenReaderPaginationLabel="Pagination"
+                          screenReaderPageLabel="page"
+                          screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+  <div fxLayout.xs="column" fxLayout="row" fxFlexFill>
+    <div fxFlex="25" >
+      <!-- <ngb-pagination [collectionSize]=customerData.length [(page)]="page" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>-->
+    </div>
+    <div fxFlex="10" >
+      <button
+        mat-stroked-button
+        [printStyle]="printDivStyle"
+        printSectionId="customer-table"
+        ngxPrint><mat-icon>print</mat-icon></button>
+    </div>
+    <div fxFlex="10" >
+      <button mat-stroked-button (click)="customerDataToExcel()"><mat-icon>cloud_download</mat-icon></button>
+    </div>
+    <div fxFlex="10" >
+      <button mat-stroked-button (click)="exporttoExcel()">Excel</button>
+    </div>
+    <div fxFlex="10" >
+      <button mat-stroked-button (click)="captureScreen()">PDF</button>
+    </div>
+    <div fxFlex="15" >
+      <button mat-stroked-button (click)="convert()">Download PDF</button>
+    </div>
+    <div fxFlex="10" >
+      <button mat-stroked-button (click)="exportToExcelSpecial()">Excel2</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
